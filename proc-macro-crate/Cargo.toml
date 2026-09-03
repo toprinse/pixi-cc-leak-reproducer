@@ -1,0 +1,14 @@
+[package]
+name = "proc-macro-crate"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+proc-macro = true
+
+# Proc-macro crates are always compiled for the BUILD platform (the machine
+# running the compiler), never for HOST (the target being produced) - even
+# when the rest of the workspace is being cross-compiled. That makes this
+# dependency, and anything it pulls in, the trigger for the bug.
+[dependencies]
+native-dep-crate = { path = "../native-dep-crate" }

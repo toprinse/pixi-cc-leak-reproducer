@@ -1,0 +1,11 @@
+[workspace]
+members = ["proc-macro-crate", "native-dep-crate"]
+resolver = "2"
+
+[package]
+name = "pixi-cc-leak-repro"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+proc-macro-crate = { path = "proc-macro-crate" }

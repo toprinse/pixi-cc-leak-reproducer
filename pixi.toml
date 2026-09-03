@@ -1,0 +1,16 @@
+[workspace]
+channels = ["https://prefix.dev/conda-forge"]
+platforms = ["linux-64", "linux-aarch64"]
+preview = ["pixi-build"]
+
+[dependencies]
+
+[package]
+name = "pixi-cc-leak-repro"
+version = "0.1.0"
+description = "Minimal reproducer: cc-rs concatenates the HOST-scoped generic CFLAGS onto the BUILD-scoped CFLAGS_<triple> instead of letting the more specific one win, leaking a HOST microarchitecture flag (-march=nocona on x86-64) into the compiler used for BUILD-platform-only artifacts (proc-macros and their native build-dependencies) during cross-compilation."
+
+[package.build]
+backend = { name = "pixi-build-rust", version = "*" }
+
+[package.build.config]
