@@ -5,22 +5,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Expected to FAIL: aarch64 runner (BUILD) producing a linux-64 (x86-64,
-  # HOST) package. HOST's generic CFLAGS carries -march=nocona -mtune=haswell,
-  # which leaks onto the aarch64 compiler used for native-dep-crate.
   aarch64-runner-build-linux-64:
     runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
       - uses: prefix-dev/setup-pixi@v0.10.0
+        with:
+          run-install: false
       - run: pixi build --target-platform=linux-64
 
-  # Expected to PASS: aarch64 runner producing a linux-aarch64 package
-  # (BUILD == HOST, nothing to leak across). Kept side by side with the job
-  # above to show the asymmetry in a single CI run.
   aarch64-runner-build-linux-aarch64:
     runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
       - uses: prefix-dev/setup-pixi@v0.10.0
+        with:
+          run-install: false
       - run: pixi build --target-platform=linux-aarch64
